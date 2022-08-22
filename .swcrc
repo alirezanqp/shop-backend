@@ -22,7 +22,11 @@
       "paths": {
         "@/*": ["*"],
         "@config": ["config"],
-        "@database": ["database/*"]
+        "@database": ["database/*"],
+        "@utils": ["utils/*"],
+        "@componenets": ["components/*"],
+        "@users": ["componenets/users/*"],
+        "@products": ["componenets/product/*"]
       }
     },
     "module": {

@@ -26,6 +26,10 @@
       "@/*": ["*"],
       "@config": ["config"],
       "@database": ["database/*"],
+      "@utils": ["utils/*"],
+      "@componenets": ["components/*"],
+      "@users": ["componenets/users/*"],
+      "@products": ["componenets/product/*"],
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env"],
