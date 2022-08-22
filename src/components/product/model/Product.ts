@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import Product from '../interface/product.interface';
+import Product from '../interface/products.interface';
 import ProductStatus from './product.status';
 
 const productsSchema: Schema = new Schema(
@@ -22,6 +22,14 @@ const productsSchema: Schema = new Schema(
     },
     gallery: {
       type: [String],
+    },
+    attributes: {
+      type: [Object],
+      required: true,
+    },
+    category: {
+      type: Schema.Types.ObjectId,
+      ref: 'Category',
     },
     status: {
       type: ProductStatus,

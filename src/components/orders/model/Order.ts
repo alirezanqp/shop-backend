@@ -1,6 +1,7 @@
 import { model, Schema } from 'mongoose';
 import Order from '../interface/order.interfce';
 import OrderStatus from './order.status';
+import orderLineSchema from './OrderLine';
 
 const orderSchema: Schema = new Schema(
   {
@@ -21,13 +22,9 @@ const orderSchema: Schema = new Schema(
       type: Number,
       required: true,
     },
-    products: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Product',
-        required: true,
-      },
-    ],
+    order_lines: {
+      type: [orderLineSchema],
+    },
     status: {
       type: OrderStatus,
       required: true,
