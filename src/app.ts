@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import express from 'express';
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 import { API_VERSION, APP_PORT, CREDENTIALS, NODE_ENV, ORIGIN } from './config';
 import { connect, set } from 'mongoose';
 import { Routes } from './routes/routes.interface';
@@ -22,6 +24,7 @@ class App {
     this.initialzeRoutes(routes);
     this.connectToDatabase();
     this.initializeMiddlewares();
+    this.initializeSwagger();
   }
 
   public start() {
@@ -52,6 +55,22 @@ class App {
     routes.forEach(route => {
       this.app.use(`/api/${API_VERSION}/`, route.router);
     });
+  }
+
+  public initializeSwagger() {
+    const options = {
+      definition: {
+        openapi: '3.0.0',
+        info: {
+          title: 'Backend Shop',
+          version: '1.0.0',
+        },
+      },
+      apis: ['swagger.yml'],
+    };
+
+    const specs = swaggerJsDoc(options);
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
   }
 }
 
