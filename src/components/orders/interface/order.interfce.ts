@@ -8,5 +8,6 @@ export default interface Order extends Document {
   coupon?: Object;
   final_price: number;
   order_lines: OrderLine[];
+  delivery_address: object;
   status: OrderStatus;
 }

@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import User from '../interface/users.interface';
+import userAddressSchema from './address.schema';
 
 const userSchema: Schema = new Schema(
   {
@@ -22,6 +23,9 @@ const userSchema: Schema = new Schema(
     totale_orders: {
       type: Number,
       required: true,
+    },
+    addresses: {
+      type: [userAddressSchema],
     },
     wallet: {
       type: Number,

@@ -6,6 +6,6 @@ export default interface User extends Document {
   email: string;
   mobile: string;
   total_orders: number;
+  addresses?: [Object];
   wallet: number;
-  created_at?: Date;
 }

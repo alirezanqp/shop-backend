@@ -25,6 +25,10 @@ const orderSchema: Schema = new Schema(
     order_lines: {
       type: [orderLineSchema],
     },
+    delivery_address: {
+      type: Object,
+      default: null,
+    },
     status: {
       type: OrderStatus,
       required: true,
