@@ -9,7 +9,7 @@ import swaggerUi from 'swagger-ui-express';
 import { API_VERSION, APP_PORT, CREDENTIALS, NODE_ENV, ORIGIN } from './config';
 import { connect, set } from 'mongoose';
 import { Routes } from './routes/routes.interface';
-import { dbConnection } from './database/mongo';
+import { mongoDBConnection } from './databases/mongo';
 
 class App {
   public app: express.Application;
@@ -48,7 +48,7 @@ class App {
       set('debug', true);
     }
 
-    connect(dbConnection.url);
+    connect(mongoDBConnection.url); // connect to mongodb
   }
 
   public initialzeRoutes(routes: Routes[]) {
