@@ -52,7 +52,7 @@ class App {
       set('debug', true);
     }
 
-    connect(mongoDBConnection.url); // connect to mongodb
+    connect('mongodb://root:9OHOcVYwQC5oMmzV4Mn5uvi4@polly.iran.liara.ir:30829/my-app?authSource=admin&replicaSet=rs0'); // connect to mongodb
   }
 
   public initialzeRoutes(routes: Routes[]) {
