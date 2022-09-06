@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  server:
+    build:
+      context: ./
+      target: development-build-stage
+      dockerfile: Dockerfile
+    container_name: server
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    networks:
+      - backend
+    links:
+      - "mongo:mongodb"
+      - redis
+    depends_on:
+      - mongo
+      - redis
+  mongo:
+    image: mongo:6.0.1
+    container_name: mongodb
+    ports:
+      - '27017:27017'
+    networks:
+      - backend
+  redis:
+    image: redis:7.0.4-alpine
+    container_name: redis
+    ports:
+      - "6375:6375"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  data:
+    driver: local
