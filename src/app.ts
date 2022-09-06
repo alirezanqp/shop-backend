@@ -29,7 +29,11 @@ class App {
 
   public start() {
     this.app.listen(this.port, () => {
-      console.log('app is listen ...');
+      console.log(`
+      --------------------------------------------
+          > 🚀 App is Listening on port: ${APP_PORT} <
+      --------------------------------------------
+      `);
     });
   }
 
