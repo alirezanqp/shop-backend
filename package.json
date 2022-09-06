@@ -4,10 +4,10 @@
   "description": "eCommerce Backend with TypeScript and Express",
   "author": "Alireza Naghdipour",
   "scripts": {
-    "start": "yarn build && cross-env NODE_ENV=production node dist/server.js",
+    "start": "cross-env NODE_ENV=development node dist/server.js",
     "dev": "cross-env NODE_ENV=development nodemon",
-    "build": "swc src -d dist --source-maps --copy-files",
-    "build:tsc": "tsc --diagnostics && tsc-alias",
+    "build:swc": "swc src -d dist --source-maps --copy-files",
+    "build": "tsc --diagnostics && tsc-alias",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",
     "lint:fix": "npm run lint -- --fix"

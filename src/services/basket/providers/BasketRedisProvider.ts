@@ -50,8 +50,9 @@ class BasketRedisProvider implements Basket {
         console.log('redis cannot remove basket items: ', err);
       });
   }
-  items(): Product[] {
-    const key = 'session:basket:uid';
+  items(): void {
+    // const key = 'session:basket:uid';
+    /*
     redisConnection
       .(key)
       .then(result => {
@@ -65,7 +66,7 @@ class BasketRedisProvider implements Basket {
       })
       .catch(err => {
         console.log('redis cannot remove basket items: ', err);
-      });
+      });*/
   }
   count(): number {
     throw new Error('Method not implemented.');
