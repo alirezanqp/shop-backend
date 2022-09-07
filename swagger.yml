@@ -1,0 +1,31 @@
+contact:
+  name: API Support
+  email: alirezanqp@gmail.com
+
+tags:
+- name: auth
+  description: user Auth
+- name: users
+  description: users API
+
+# definitions
+definitions:
+  users:
+    type: object
+    required:
+        - email
+        - username
+        - password
+    properties:
+      email:
+        type: string
+        description: user Email
+      password:
+        type: string
+        description: user Password
+      username:
+        type: string
+        description: username
+      name:
+        type: string
+        description: user Name

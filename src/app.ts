@@ -6,11 +6,9 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { API_VERSION, APP_PORT, CREDENTIALS, NODE_ENV, ORIGIN } from './config';
+import { APP_PORT, CREDENTIALS, NODE_ENV, ORIGIN } from './config';
 import { connect, set } from 'mongoose';
 import { Routes } from './routes/routes.interface';
-import { mongoDBConnection } from './databases/mongo';
-
 class App {
   public app: express.Application;
   public env: string;
@@ -68,9 +66,10 @@ class App {
         info: {
           title: 'Backend Shop',
           version: '1.0.0',
+          description: 'a api for e-commerce backend',
         },
       },
-      apis: ['swagger.yml'],
+      apis: ['./src/components/*/*.route.ts', 'swagger.yml'],
     };
 
     const specs = swaggerJsDoc(options);
