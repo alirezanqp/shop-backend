@@ -26,7 +26,7 @@ const userSchema: Schema = new Schema(
     },
     totale_orders: {
       type: Number,
-      required: true,
+      default: 0,
     },
     addresses: {
       type: [userAddressSchema],
