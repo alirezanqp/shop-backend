@@ -50,7 +50,7 @@ class App {
       set('debug', true);
     }
 
-    connect('mongodb://root:9OHOcVYwQC5oMmzV4Mn5uvi4@polly.iran.liara.ir:30829/my-app?authSource=admin&replicaSet=rs0'); // connect to mongodb
+    connect('mongodb://root:9OHOcVYwQC5oMmzV4Mn5uvi4@polly.iran.liara.ir:30829/my-app?authSource=admin&replicaSet=rs0');
   }
 
   public initialzeRoutes(routes: Routes[]) {
@@ -66,7 +66,7 @@ class App {
         info: {
           title: 'Backend Shop',
           version: '1.0.0',
-          description: 'a api for e-commerce backend',
+          description: 'a api for e-commerce backend.    **base url: http://{host}/api/',
         },
       },
       apis: ['./src/components/*/*.route.ts', 'swagger.yml'],
