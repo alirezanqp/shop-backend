@@ -8,6 +8,8 @@ eCommerce Backend with TypeScript and Express.js
 
 **Server:** Node.js, Express
 
+**DataBase:** MongoDB, Redis
+
 **DevOps:** Docker, Docker-Compose, Github Actions
 
 
