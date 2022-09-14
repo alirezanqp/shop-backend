@@ -1,19 +1,25 @@
 import Product from '@/components/product/interface/products.interface';
 import { redisConnection } from '@/databases/redis';
 import Basket from '../contracts/basket.interface';
+import BasketConfigurable from '../contracts/BasketConfigurable';
 
-class BasketRedisProvider implements Basket {
+class BasketRedisProvider implements Basket, BasketConfigurable {
+  private key = '';
+
+  public config(config: string): void {
+    this.key = config;
+  }
+
   public add(product: Product): void {
-    const key = 'session:basket:uid';
     redisConnection
-      .get(key)
+      .get(this.key)
       .then(result => {
         if (result) {
           const items = JSON.parse(result as string);
           items.push(product);
 
           redisConnection
-            .set(key, JSON.stringify(items))
+            .set(this.key, JSON.stringify(items))
             .then(() => {
               console.log('set!');
             })
@@ -28,16 +34,15 @@ class BasketRedisProvider implements Basket {
   }
 
   public remove(product: Product): void {
-    const key = 'session:basket:uid';
     redisConnection
-      .get(key)
+      .get(this.key)
       .then(result => {
         if (result) {
           const items = JSON.parse(result as string);
           items.splice(items.indexOf(product), 1);
 
           redisConnection
-            .set(key, JSON.stringify(items))
+            .set(this.key, JSON.stringify(items))
             .then(() => {
               console.log('Removed!');
             })
@@ -50,35 +55,43 @@ class BasketRedisProvider implements Basket {
         console.log('redis cannot remove basket items: ', err);
       });
   }
-  items(): void {
-    // const key = 'session:basket:uid';
-    /*
-    redisConnection
-      .(key)
-      .then(result => {
-        if (result) {
-          const items = JSON.parse(result);
-          const products = items.forEach((item: Product, _: number) => {
-            return item;
-          });
-          return products;
-        }
-      })
-      .catch(err => {
-        console.log('redis cannot remove basket items: ', err);
-      });*/
+
+  public async items(): Promise<Product[]> {
+    const items = await this.getItems();
+    return items;
   }
-  count(): number {
-    throw new Error('Method not implemented.');
+
+  public async count(): Promise<number> {
+    const items = await this.getItems();
+    return items.length;
   }
-  clear(): void {
-    throw new Error('Method not implemented.');
+
+  public clear(): void {
+    redisConnection.del(this.key);
   }
-  total(): number {
-    throw new Error('Method not implemented.');
+
+  public async total(): Promise<Number> {
+    const items = await this.getItems();
+    return items.reduce((total: number, product: Product) => {
+      return total + product.price;
+    }, 0);
   }
-  has(product: Product): boolean {
-    throw new Error('Method not implemented.');
+
+  public async has(product: Product): Promise<Boolean> {
+    const items = await this.getItems();
+    return items.includes(product);
+  }
+
+  private async getItems(): Promise<Product[]> {
+    const items = await redisConnection
+      .get(this.key)
+      .then(result => result)
+      .catch(() => false);
+    if (items) {
+      const decodedItems = JSON.parse(items as string);
+      return decodedItems;
+    }
+    return [];
   }
 }
 
