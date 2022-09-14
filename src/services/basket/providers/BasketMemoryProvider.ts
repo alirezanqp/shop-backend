@@ -8,30 +8,31 @@ class BasketMemoryProvider implements Basket {
     this.basketItems.push(product);
   }
 
-  remove(product: Product): void {
-    if (this.has(product)) this.basketItems.splice(this.basketItems.indexOf(product), 1);
+  async remove(product: Product): Promise<void> {
+    if (await this.has(product)) this.basketItems.splice(this.basketItems.indexOf(product), 1);
   }
 
-  items(): Product[] {
-    return this.basketItems;
+  items(): Promise<Product[]> {
+    return Promise.resolve(this.basketItems);
   }
 
-  count(): number {
-    return this.basketItems.length;
+  count(): Promise<Number> {
+    return Promise.resolve(this.basketItems.length);
   }
 
   public clear(): void {
     this.basketItems = [];
   }
 
-  public total(): number {
-    return this.basketItems.reduce((total, product: Product) => {
+  public total(): Promise<Number> {
+    const totalBasket = this.basketItems.reduce((total, product: Product) => {
       return total + product.price;
     }, 10);
+    return Promise.resolve(totalBasket);
   }
 
-  public has(product: Product): boolean {
-    return this.basketItems.includes(product);
+  public has(product: Product): Promise<Boolean> {
+    return Promise.resolve(this.basketItems.includes(product));
   }
 }
 
