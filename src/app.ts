@@ -48,6 +48,8 @@ class App {
   private connectToDatabase() {
     if (this.env !== 'production') {
       set('debug', true);
+      connect('mongodb://mongodb:27017/shop');
+      return;
     }
 
     connect('mongodb://root:9OHOcVYwQC5oMmzV4Mn5uvi4@polly.iran.liara.ir:30829/my-app?authSource=admin&replicaSet=rs0');
