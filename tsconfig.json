@@ -30,6 +30,8 @@
       "@componenets": ["components/*"],
       "@users": ["componenets/users/*"],
       "@products": ["componenets/product/*"],
+      "@exceptions": ["exceptions/*"],
+      "@middlewares": ["middlewares/*"],
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env"],
