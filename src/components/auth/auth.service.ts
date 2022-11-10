@@ -12,15 +12,19 @@ import { sign } from 'jsonwebtoken';
 class AuthService {
   public users = userModel;
 
-  public async signup(userData: CreateSignUpDto): Promise<User> {
+  public async signup(userData: CreateSignUpDto): Promise<{ cookie: string; newUser: User }> {
     if (isEmpty(userData)) throw new HttpException(400, 'User data is empty');
 
     const findUser = await this.users.findOne({ email: userData.email });
     if (findUser) throw new HttpException(409, 'email already exists');
 
     const hashedPassword = await hash(userData.password, 10);
-    const newUserData = await this.users.create({ ...userData, password: hashedPassword });
-    return newUserData;
+    const newUser = await this.users.create({ ...userData, password: hashedPassword });
+
+    const tokenData = this.createToken(newUser);
+    const cookie = this.createCookie(tokenData);
+
+    return { cookie, newUser };
   }
 
   public async login(userData: CreateLoginDto): Promise<{ cookie: string; findUser: User }> {
