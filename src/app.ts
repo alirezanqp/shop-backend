@@ -9,6 +9,7 @@ import swaggerUi from 'swagger-ui-express';
 import { APP_PORT, CREDENTIALS, NODE_ENV, ORIGIN } from './config';
 import { connect, set } from 'mongoose';
 import { Routes } from './routes/routes.interface';
+import errorMiddleware from './middlewares/error.middleware';
 class App {
   public app: express.Application;
   public env: string;
@@ -23,6 +24,7 @@ class App {
     this.connectToDatabase();
     this.initializeMiddlewares();
     this.initializeSwagger();
+    this.initialzeErrorHandler();
   }
 
   public start() {
@@ -76,6 +78,10 @@ class App {
 
     const specs = swaggerJsDoc(options);
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+  }
+
+  private initialzeErrorHandler() {
+    this.app.use(errorMiddleware);
   }
 }
 
