@@ -1,9 +1,9 @@
 // import { CreateUserDto } from './dto/product.dto';
 
-class ProductsService {
+class CategoryService {
   public async cr() {
     return 'sss';
   }
 }
 
-export default ProductsService;
+export default CategoryService;
