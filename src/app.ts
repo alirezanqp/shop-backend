@@ -10,6 +10,7 @@ import { APP_PORT, CREDENTIALS, NODE_ENV, ORIGIN } from './config';
 import { connect, set } from 'mongoose';
 import { Routes } from './routes/routes.interface';
 import errorMiddleware from './middlewares/error.middleware';
+import { logger } from './utils/logger';
 class App {
   public app: express.Application;
   public env: string;
@@ -29,7 +30,7 @@ class App {
 
   public start() {
     this.app.listen(this.port, () => {
-      console.log(`
+      logger.info(`
       --------------------------------------------
           > 🚀 App is Listening on port: ${APP_PORT} <
       --------------------------------------------
