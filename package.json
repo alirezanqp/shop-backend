@@ -60,7 +60,7 @@
     "helmet": "^5.1.1",
     "hpp": "^0.2.3",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.5.2",
+    "mongoose": "^6.11.1",
     "redis": "^4.3.0",
     "swagger-jsdoc": "^6.2.5",
     "swagger-ui-express": "^4.5.0",
